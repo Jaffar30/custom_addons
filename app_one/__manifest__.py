@@ -9,7 +9,9 @@
     'category': 'Custom',
     'depends': ['base'],
     'data': [
-        # Add your XML/CSV files here, e.g., 'views/view_file.xml',
+        'security/ir.model.access.csv',
+        'views/property.xml',
+        'views/menu.xml',
     ],
     'installable': True,
     'application': True,
