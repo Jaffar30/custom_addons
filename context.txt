@@ -1,0 +1,12 @@
+Basic fields:
+
+Boolean
+Char
+Text
+Float
+Integer
+Selection
+Date
+Datetime
+Binary 
+Html
