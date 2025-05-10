@@ -1,0 +1,24 @@
+[app_email]{
+
+  'data'(
+    'email_template.xml',
+    'emp_cron.xml'
+  ),
+  'i18n'(
+    'ar_001.po'
+  ),
+  'models'(
+    '__init__.py',
+    'emp.py'
+  ),
+  'security'(
+    'ir.model.acccess.csv'
+  ),
+  'views'(
+    'action.xml',
+    'menu.xml'
+  ),
+  '__init__.py',
+  '__manifest__.py'
+
+}

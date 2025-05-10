@@ -36,7 +36,7 @@
                     <group>
                         <group string="General Info">
                         
-                        <field name="description"/>
+                        <field name="description" required="1"/>
                         <field name="postcode"/>
                         <field name="date_availability"/>
                         <field name="expected_price"/>
@@ -67,8 +67,8 @@
                 <field name="postcode"/>
 
                 <filter name="is_garden" string="With Garden" domain="[('garden','=',True)]"></filter>
-                <filter name="is_garden" string="Without Garden" domain="[('garden','=',False)]"></filter>
-                <filter name="is_garden" string="With Gargage" domain="[('garage','=',True)]"></filter>
+                <filter name="is_not_garden" string="Without Garden" domain="[('garden','=',False)]"></filter>
+                <filter name="is_garage" string="With Gargage" domain="[('garage','=',True)]"></filter>
 
                 <filter name="group_garden" string="Garden" context="{'group_by':'garden'}"/>
                 <filter name="group_garden_orientation" string="Garde Orientation" context="{'group_by':'garden_orientation'}"/>

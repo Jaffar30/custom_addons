@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_cron_emp_email_cron" model="ir.cron">
+         <field name="name">Test emp_email_cron</field>
+         <field name="model_id" ref="model_app_email_emp"/>
+         <field name="state">code</field>
+         <field name="code">model.emp_email_cron()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

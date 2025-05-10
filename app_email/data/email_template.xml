@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="email_template_emp_probation" model="mail.template">
+            <field name="name">Employee Probation Reminder</field>
+            <field name="model_id" ref="app_email.model_app_email_emp"/>
+            <field name="subject">Reminder: Your Probation Period</field>
+            <field name="email_from">{{ (user.email or 'info@company.com') }}</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p t-translate="true">Hello <t t-out="object.name" />,</p>
+                    <p t-translate="false">This part will not be translatable</p>
+                    <p t-translate="true">This part will be translatable</p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
