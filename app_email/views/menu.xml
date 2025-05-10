@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="emp_root_menu"
+        name="Emps"
+        sequence="10"
+        action="emp_action"
+    />
+
+</odoo>
