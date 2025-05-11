@@ -2,10 +2,26 @@
 <odoo>
 
     <menuitem
-        id="emp_root_menu"
-        name="Emps"
+        id="email_root_menu"
+        name="App Email"
         sequence="10"
         action="emp_action"
+    />
+
+    <menuitem
+        id="emp_menu"
+        name="Emps"
+        parent="email_root_menu"
+        sequence="1"
+        action="emp_action"
+    />
+
+    <menuitem
+        id="manager_menu"
+        name="Manager"
+        parent="email_root_menu"
+        sequence="2"
+        action="manager_action"
     />
 
 </odoo>

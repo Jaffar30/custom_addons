@@ -7,4 +7,10 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="manager_action" model="ir.actions.act_window">
+        <field name="name">manager action</field>
+        <field name="res_model">app_email.manager</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
 </odoo>

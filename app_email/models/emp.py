@@ -6,7 +6,7 @@ class Emp(models.Model):
 
     name = fields.Char(string='Name',translate=True)
     email = fields.Char(string='Email')
-    manager_email = fields.Char(string='Manager Email')
+    manager_ids = fields.One2many('app_email.manager', 'emp_id', string='manager')
     age = fields.Integer(string='Age')
     prob_date = fields.Date(string='Probation Date')
     stage = fields.Selection([
@@ -16,15 +16,10 @@ class Emp(models.Model):
 
     def emp_email_cron(self):
         print('==========================================================================================')
-        emps = self.env['app_email.emp'].search([('stage','=','prob')])
-        print(emps)
+        emps = self.env['app_email.emp'].search([('name','=','Ali')])
         for emp in emps:
-            emp_prob_left_days = (emp.prob_date - fields.Date.today()).days
-            if (emp_prob_left_days % 3 == 0) or ((emp_prob_left_days < 6) and (emp_prob_left_days > 0)):
-                print(f"{emp.name} get email at day number {emp_prob_left_days}")
-                if emp.email:
                     template = template = self.env.ref('app_email.email_template_emp_probation')
-                    template.with_context(lang='ar_001').send_mail(emp.id, force_send=True)
+                    template.with_context(lang='ar_001').send_mail(emp.id)
         print('==========================================================================================')
         # prob_date = "2025-05-30" 
         # today_date = fields.Date.today()
