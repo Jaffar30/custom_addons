@@ -10,3 +10,81 @@ Date
 Datetime
 Binary 
 Html
+
+
+
+RPC_ERROR
+Odoo Server Error
+Traceback (most recent call last):
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\http.py", line 1788, in _serve_db
+    return service_model.retrying(self._serve_ir_http, self.env)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\service\model.py", line 152, in retrying
+    result = func()
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\http.py", line 1816, in _serve_ir_http
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\http.py", line 2020, in dispatch
+    result = self.request.registry['ir.http']._dispatch(endpoint)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\addons\base\models\ir_http.py", line 221, in _dispatch
+    result = endpoint(**request.params)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\http.py", line 757, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+  File "c:\users\jaffar_pc\onedrive\desktop\projects\odoo_17\odoo\addons\web\controllers\dataset.py", line 29, in call_button
+    action = self._call_kw(model, method, args, kwargs)
+  File "c:\users\jaffar_pc\onedrive\desktop\projects\odoo_17\odoo\addons\web\controllers\dataset.py", line 21, in _call_kw
+    return call_kw(Model, method, args, kwargs)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\api.py", line 484, in call_kw
+    result = _call_kw_multi(method, model, args, kwargs)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\api.py", line 469, in _call_kw_multi
+    result = method(recs, *args, **kwargs)
+  File "<decorator-gen-77>", line 2, in button_immediate_upgrade
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\addons\base\models\ir_module.py", line 75, in check_and_log
+    return method(self, *args, **kwargs)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\addons\base\models\ir_module.py", line 660, in button_immediate_upgrade
+    return self._button_immediate_function(self.env.registry[self._name].button_upgrade)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\addons\base\models\ir_module.py", line 593, in _button_immediate_function
+    registry = modules.registry.Registry.new(self._cr.dbname, update_module=True)
+  File "<decorator-gen-16>", line 2, in new
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\modules\registry.py", line 110, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\modules\loading.py", line 481, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\modules\loading.py", line 366, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\modules\loading.py", line 229, in load_module_graph
+    load_data(env, idref, mode, kind='data', package=package)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\tools\convert.py", line 627, in convert_file
+    convert_xml_import(env, module, fp, idref, mode, noupdate)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\tools\convert.py", line 693, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\tools\convert.py", line 613, in parse
+    self._tag_root(de)
+  File "C:\Users\Jaffar_Pc\oneDrive\desktop\projects\odoo_17\odoo\odoo\tools\convert.py", line 567, in _tag_root
+    raise ParseError(msg) from None  # Restart with "--log-handler odoo.tools.convert:DEBUG" for complete traceback
+odoo.tools.convert.ParseError: while parsing file:/c:/users/jaffar_pc/onedrive/desktop/projects/odoo_17/custom_addons/oi_count/views/vote_option.xml:4
+Error while validating view near:
+
+                <field name="incremented_user" invisible="1"/> -->
+                <button name="increment_count" type="object" class="btn-primary" icon="fa-plus" invisible="{count &gt; 1}"/>
+            </tree>
+Invalid modifier 'invisible': '{count > 1}'
+Undefined item <ast.Set object at 0x0000016D49B4BD60>.
+
+View error context:
+{'file': 'c:\\users\\jaffar_pc\\onedrive\\desktop\\projects\\odoo_17\\custom_addons\\oi_count\\views\\vote_option.xml',
+ 'line': 8,
+ 'name': 'vote.option.tree',
+ 'view': ir.ui.view(695,),
+ 'view.model': 'vote.option',
+ 'view.parent': ir.ui.view(),
+ 'xmlid': 'view_vote_option_tree'}
+
+
+The above server error caused the following client error:
+RPC_ERROR: Odoo Server Error
+    RPC_ERROR
+        at makeErrorFromResponse (http://localhost:8069/web/assets/d901089/web.assets_web.min.js:2939:163)
+        at XMLHttpRequest.<anonymous> (http://localhost:8069/web/assets/d901089/web.assets_web.min.js:2943:13)

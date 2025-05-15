@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="vote_option_root_menu"
+        name="Vote Option"
+        sequence="10"
+    />
+
+    <menuitem
+        id="vote_option_menu"
+        name="Vote Option"
+        sequence="10"
+        parent="vote_option_root_menu"
+        action="action_vote_option"
+    />
+
+</odoo>
