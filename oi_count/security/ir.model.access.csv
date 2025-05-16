@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_vote_option,access_vote_option,model_vote_option,base.group_user,1,1,1,1
+access_option,access_option,model_option,base.group_user,1,1,1,1
+access_meeting_option,access_meeting_option,model_meeting_option,base.group_user,1,1,1,1
+access_meeting,access_meeting,model_meeting,base.group_user,1,1,1,1

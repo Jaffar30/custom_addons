@@ -2,17 +2,30 @@
 <odoo>
 
     <menuitem
-        id="vote_option_root_menu"
-        name="Vote Option"
-        sequence="10"
-    />
+        id="oi_count_root_menu"
+        name="OI Count"
+        sequence="10"/>
 
     <menuitem
-        id="vote_option_menu"
-        name="Vote Option"
-        sequence="10"
-        parent="vote_option_root_menu"
-        action="action_vote_option"
-    />
+        id="option_menu"
+        name="Options"
+        parent="oi_count_root_menu"
+        action="option_action"
+       />
+
+    <menuitem
+        id="meeting_menu"
+        name="Meeting"
+        parent="oi_count_root_menu"
+        action="meeting_action"
+       />
+
+       <menuitem
+        id="meeting_option_menu"
+        name="Meeting Option"
+        parent="oi_count_root_menu"
+        action="meeting_option_action"
+       />
 
 </odoo>
+

@@ -10,7 +10,9 @@
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
-        'views/vote_option.xml',
+        'views/option.xml',
+        'views/meeting.xml',
+        'views/meeting_option.xml',
         'views/menu.xml',
     ],
     'installable': True,

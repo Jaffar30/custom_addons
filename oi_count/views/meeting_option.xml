@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="meeting_option_tree" model="ir.ui.view">
+        <field name="name">meeting option tree</field>
+        <field name="model">meeting.option</field>
+        <field name="arch" type="xml">
+            <tree create="true" edit="true">
+                <field name="meeting_id" />
+                <field name="option_id" />
+                <field name="count" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="meeting_option_form" model="ir.ui.view">
+        <field name="name">meeting option form</field>
+        <field name="model">meeting.option</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="meeting_id" />
+                        <field name="option_id" />
+                        <field name="count" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="meeting_option_action" model="ir.actions.act_window">
+        <field name="name">meeting option</field>
+        <field name="res_model">meeting.option</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
+

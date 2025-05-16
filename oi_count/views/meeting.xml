@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="meeting_tree" model="ir.ui.view">
+        <field name="name">meeting tree</field>
+        <field name="model">meeting</field>
+        <field name="arch" type="xml">
+            <tree create="true" edit="true">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="meeting_form" model="ir.ui.view">
+        <field name="name">meeting form</field>
+        <field name="model">meeting</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Vote">
+                            <field name="did_voted" />
+                            <field name="current_user" />
+                            <field name="voter_ids" />
+                            <field name="meeting_option_ids" context="{'did_voted': did_voted}">
+                                <tree create="0" delete="0">
+                                    <field name="option_id"/>
+                                    <field name="count"/>
+                                    <button name="increment_count" string="Vote" type="object" class="btn-primary" icon="fa-thumbs-up" invisible="parent.did_voted == True"  />                                
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="meeting_action" model="ir.actions.act_window">
+        <field name="name">meeting</field>
+        <field name="res_model">meeting</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

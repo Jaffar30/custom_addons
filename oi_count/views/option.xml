@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="option_tree" model="ir.ui.view">
+        <field name="name">option tree</field>
+        <field name="model">option</field>
+        <field name="arch" type="xml">
+            <tree create="true" edit="true" editable="bottom">
+                <field name="name" />
+                <field name="code" />
+                <field name="active" widget="boolean_toggle" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="option_action" model="ir.actions.act_window">
+        <field name="name">option</field>
+        <field name="res_model">option</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>
+
