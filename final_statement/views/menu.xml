@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="final_statement_menu"
+        name="Final Statement"
+        sequence="10"
+        action="final_statement_action"    
+    />
+
+</odoo>
