@@ -1,0 +1,235 @@
+<odoo>
+    <template id="jaffar_po_report" name="jaffar_po_report">
+        <t t-foreach="docs" t-as="o">
+            
+            <!-- header -->
+            <div class="header">
+                
+            </div>
+            <!-- header -->
+
+            <!-- name -->
+            <t t-set="layout_document_title">
+                <t t-if="o.state in ['draft', 'sent', 'to approve']">
+                    Request for Quotation #TTK/<span t-field="o.name"/>
+                </t>
+                <t t-if="o.state in ['purchase', 'done']">
+                    Purchase Order #TTK/<span t-field="o.name"/>
+                </t>
+                <t t-if="o.state == 'cancel'">
+                    Cancelled Purchase Order #TTK/<span t-field="o.name"/>
+                </t>
+            </t>
+            <!-- name -->
+
+            <!-- Body-->
+            <t t-call="web.basic_layout">
+                <t t-call="web.html_container">
+                    <div class="page">
+
+                        <!-- name -->
+                        <div class="row mb-4">
+                            <div class="col text-center">
+                                <h2><t t-out="layout_document_title"/></h2>
+                            </div>
+                        </div>
+                        <!-- name -->
+
+                        <!-- address -->
+                        <div class="row mb-2">
+                            <!-- Supplier Block -->
+                            <div class="col">
+                                <h4 class="text-start">Supplier Address</h4>
+                                <div t-field="o.partner_id"
+                                    t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
+                            </div>
+
+                            <!-- Shipping Block -->
+                            <div class="col">
+                                <h4 class="text-start">Shipping Address</h4>
+                                <t t-if="o.dest_address_id">
+                                    <div t-field="o.dest_address_id"
+                                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                </t>
+                                <t t-else="">
+                                    <t t-if="o.picking_type_id and o.picking_type_id.warehouse_id">
+                                        <span t-field="o.picking_type_id.warehouse_id.name" class="d-block"/>
+                                        <div t-field="o.picking_type_id.warehouse_id.partner_id"
+                                            t-options='{"widget": "contact", "fields": ["address", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                    </t>
+                                </t>
+                            </div>
+
+                        </div>
+                        <!-- address -->
+
+
+                        <!-- Info -->
+                        <div class="row">
+
+                            <div t-if="o.user_id" class="col">
+                                <strong>Buyer</strong>
+                                <div t-field="o.user_id"/>
+                            </div>
+
+                            <div t-if="o.origin" class="col">
+                                <strong>Source Document</strong>
+                                <div t-field="o.origin"/>
+                            </div>
+
+                            <div t-if="o.state in ['purchase','done'] and o.date_approve" class="col-3 bm-2">
+                                <strong>Order Date:</strong>
+                                <p t-field="o.date_approve" t-options="{'date_only': 'true'}" class="m-0"/>
+                            </div>
+
+                            <div t-elif="o.date_order" class="col-2 bm-2">
+                                <strong>Order Deadline:</strong>
+                                <p t-field="o.date_order" t-options="{'date_only': 'true'}" class="m-0"/>
+                            </div>
+
+                            <div t-if="o.date_planned" class="col-2 bm-2">
+                                <strong>Expected Arrival:</strong>
+                                <p t-field="o.date_planned" t-options="{'date_only': 'true'}" class="m-0"/>
+                            </div>
+
+                            <div t-if="o.incoterm_id" class="col-2 bm-2">
+                                <strong>Incoterm:</strong>
+                                <p t-field="o.incoterm_id.code" class="m-0"/>
+                            </div>
+
+                        </div>
+                        <!-- Info -->
+
+                        <!-- Lines -->
+                        <div class="row">
+                            <div class="col">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-start"><strong>Description</strong></th>
+                                            <th class="text-center"><strong>Qty</strong></th>
+                                            <th class="text-center"><strong>Unit Price</strong></th>
+                                            <th class="text-center"><strong>Taxes</strong></th>
+                                            <th class="text-center"><strong>Amount</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="discount" t-value="0.0"/>
+                                        <t t-foreach="o.order_line" t-as="line">
+                                            <t t-if="(line.product_id.type!='service') or (line.product_id.type=='service' and line.product_id.product_section_id.code != 'discount')">
+                                                <tr>
+                                                    <td class="text-start">
+                                                        <t t-esc="line.product_id.display_name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="line.product_uom_qty"/> <t t-esc="line.product_uom.name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="o.currency_id.symbol"/> <t t-esc="line.price_unit"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="', '.join(t.name for t in line.taxes_id) if line.taxes_id else ''"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="o.currency_id.symbol"/> <t t-esc="line.price_subtotal"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="discount" t-value="discount + line.price_subtotal"/>
+                                            </t>
+                                    </t>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Lines -->
+
+                        <!-- untaxed amount and total and discount -->
+                        <t t-if="discount &lt;= 0">
+                            <div class="row mt-2">
+                                <div class="col offset-9">
+                                    Discont Amount : <t t-esc="o.currency_id.symbol"/>  <t t-esc="discount"/>
+                                </div>
+                            </div>
+                        </t>
+                        
+
+                        <div class="row mt-2">
+                            <div class="col offset-9">
+                                Untaxed Amount : <t t-esc="o.currency_id.symbol"/> <t t-esc="o.amount_untaxed"/>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col offset-9">
+                                VAT : <t t-esc="o.currency_id.symbol"/> <t t-esc="o.amount_tax"/>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col offset-9">
+                                <hr/>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col offset-9">
+                                Total Amount : <t t-esc="o.currency_id.symbol"/> <t t-esc="o.amount_total"/>
+                            </div>
+                        </div>
+
+                        
+                        <!-- untaxed amount and total and discount -->
+
+                        <!-- Payment Term -->
+                        <strong>Notes: </strong>
+                        <p t-field="o.notes" class="mt-4"/>
+                        <div class="oe_structure"/>
+
+                        <strong>Payment Terms: </strong>
+                        <span t-field="o.payment_term_id" class="mt-4"/>
+
+                        <t t-set="base_address" t-value="o.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+                        <t t-set="portal_url" t-value="base_address + '/my/purchase/' + str(o.id) + '#portal_connect_software_modal'"/>
+                        <div t-if="any(u._is_portal() for u in o.partner_id.user_ids)" class="text-center">
+                            <a t-att-href="portal_url">Connect your software</a> with <t t-out="o.company_id.name"/> to create quotes automatically.
+                        </div>
+                        <!-- Payment Term -->
+
+                    </div>
+                </t>
+            </t>
+            <!-- Body-->
+
+            <!-- footer -->
+            <div class="footer container">
+                <div class="row">
+                    <div class="col">
+                        <hr/>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col text-start">
+                        <t t-esc="f'{int(time.strftime('%d'))}-{int(time.strftime('%m'))}-{time.strftime('%Y')}'" />
+                    </div>
+
+                    <div class="col text-center">
+                        <span>Page <span class="page"></span> / <span class="topage"></span></span>
+                    </div>
+
+                    <div class="col text-end">
+                        TTK/<span t-out="o.name"/>
+                    </div>
+
+                </div>
+            </div>
+            <!-- footer -->
+
+
+
+        </t>
+    </template>
+</odoo>
